@@ -1,0 +1,58 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:visibility="visible"
+             android:clickable="false"
+             android:layout_centerHorizontal="true"
+             android:layout_centerVertical="true"
+             tools:context=".views.LoadingFragment">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    android:clickable="false"
+                    android:background="@drawable/rounded_corners"
+                    android:alpha="0.7"
+                    android:layout_gravity="center"
+                    android:paddingBottom="10dp"
+                    android:paddingRight="30dp"
+                    android:paddingLeft="30dp">
+
+        <ProgressBar
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:id="@+id/loading"
+            android:visibility="visible"
+            android:clickable="false"
+            android:layout_gravity="center"
+            android:indeterminate="false"
+            android:background="@drawable/loading"
+            android:alpha="1"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="10dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:clickable="false"
+            android:text="@string/loading"
+            android:layout_gravity="bottom|center_horizontal"
+            android:textStyle="bold"
+            android:typeface="sans"
+            android:alpha="1"
+            android:layout_below="@+id/loading"
+            android:layout_centerHorizontal="true"
+            android:textSize="@dimen/loading_textSize"
+            android:textColor="@color/white"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="40dp"
+            />
+
+    </RelativeLayout>
+
+</FrameLayout>

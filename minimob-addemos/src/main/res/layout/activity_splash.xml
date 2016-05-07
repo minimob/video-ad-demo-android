@@ -1,0 +1,48 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+		android:id="@+id/act_splash"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="@color/transparent"
+		android:fitsSystemWindows="true"
+        android:gravity="center_horizontal"
+		tools:context="com.minimob.addemos.views.Splash"
+		style="@style/AppTheme">
+
+		<ImageView
+            android:id="@+id/splash_image"
+			android:src="@mipmap/minimob_splash"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:scaleType="centerInside"
+            android:contentDescription="@string/app_name"
+			android:longClickable="false"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp">
+		</ImageView>
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/splash_tvAppName"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/splash_image"/>
+
+        <TextView
+            android:id="@+id/splash_tvAppName"
+            android:inputType="none"
+            android:text="@string/app_name"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/verybig_label_textSize"
+			android:paddingBottom="@dimen/item_padding_top_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true">
+        </TextView>
+
+</RelativeLayout>
+
+

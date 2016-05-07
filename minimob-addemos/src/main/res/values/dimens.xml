@@ -1,0 +1,51 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="nav_header_vertical_spacing">16dp</dimen>
+    <dimen name="nav_header_height">160dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">1dp</dimen>
+    <dimen name="activity_vertical_margin">1dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="nav_header_size">28sp</dimen>
+    <dimen name="menu_group_item_size">26sp</dimen>
+    <dimen name="menu_item_size">22sp</dimen>
+    <dimen name="webview_padding">10dp</dimen>
+    <dimen name="verybig_label_textSize">36sp</dimen>
+
+    <!-- stream/feed -->
+    <dimen name="item_margin">10dp</dimen>
+    <dimen name="item_padding_top_bottom">20dp</dimen>
+    <dimen name="padding_left_right">15dp</dimen>
+    <dimen name="item_profile_pic">50dp</dimen>
+    <dimen name="item_profile_info_padd">10dp</dimen>
+    <dimen name="item_profile_name">15dp</dimen>
+    <dimen name="item_timestamp">13dp</dimen>
+    <dimen name="item_status_pad_left_right">15dp</dimen>
+    <dimen name="item_status_pad_top">13dp</dimen>
+    <dimen name="item_corner_radius">3dp</dimen>
+    <dimen name="item_border_width">1dp</dimen>
+    <dimen name="news_feed_item_webview">75dp</dimen>
+    <dimen name="content_stream_item_webview_height">115dp</dimen>
+
+    <!-- content wall -->
+    <dimen name="content_wall_webview_height">120dp</dimen>
+    <dimen name="grid_webview_height">80dp</dimen>
+
+    <!-- chat list -->
+    <dimen name="chat_list_item_border_width">3dp</dimen>
+    <dimen name="chat_list_item_corner_radius">7dp</dimen>
+    <dimen name="chat_list_margin">70dp</dimen>
+    <dimen name="chat_list_item_webview_height">80dp</dimen>
+
+    <!-- banner -->
+    <dimen name="banner_margin">80dp</dimen>
+    <dimen name="banner_webview_height">80dp</dimen>
+
+    <!-- carousel -->
+    <dimen name="item_carousel">250dp</dimen>
+
+    <!-- Interstitial -->
+    <dimen name="interstitialads_textSize">60dp</dimen>
+
+    <dimen name="loading_textSize">18sp</dimen>
+</resources>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single" android:title="@string/nativeads">
+        <item android:title="@string/videoads" android:textSize="@dimen/menu_group_item_size">
+            <menu>
+                <item
+                    android:id="@+id/videos_fullscreen"
+                    android:title="@string/videoads_fullscreen" />
+                <item
+                    android:id="@+id/videos_fullscreen_preloaded"
+                    android:title="@string/videoads_fullscreen_preloaded" />
+            </menu>
+        </item>
+    </group>
+</menu>

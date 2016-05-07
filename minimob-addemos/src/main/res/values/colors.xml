@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#018bd3</color>
+    <color name="colorPrimaryDark">#0b5ba0</color>
+    <!--<color name="colorAccent">#46a539</color>-->
+    <color name="colorAccent">#c0c0c0</color>
+    <color name="transparent">#00000000</color>
+    <color name="gray">#808080</color>
+
+    <!-- news feed -->
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
+    <color name="feed_bg">#d3d6db</color>
+    <color name="feed_item_bg">#ffffff</color>
+    <color name="feed_item_border">#c2c3c8</color>
+    <color name="link">#0a80d1</color>
+    <color name="timestamp">#a0a3a7</color>
+</resources>

@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Minimob demos</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="nav_header_title">Minimob demos</string>
+
+    <string name="nativeads">Native Ads</string>
+    <string name="nativeads_app_wall">App Wall</string>
+    <string name="nativeads_carousel">Carousel</string>
+    <string name="nativeads_carousel_full">Carousel Full</string>
+    <string name="nativeads_chat_list">Chat List</string>
+    <string name="nativeads_content_stream">Content Stream</string>
+    <string name="nativeads_content_wall">Content Wall</string>
+    <string name="nativeads_news_feed">News Feed</string>
+    <string name="nativeads_grid">Content adjoining Grid</string>
+    <string name="nativeads_grid_full">Grid Full</string>
+
+    <string name="interstitialads">Interstitial Ads</string>
+    <string name="interstitialads_interstitials">Interstitials</string>
+    <string name="bannerads">Banner Ads</string>
+    <string name="bannerads_banner">Banner</string>
+    <string name="videoads">Video Ads</string>
+    <string name="videoads_fullscreen">Fullscreen Video</string>
+    <string name="videoads_fullscreen_preloaded">Fullscreen Video (preloaded)</string>
+    <string name="videoads_fullscreen_play">Play Video</string>
+    <string name="videoads_banner">Banner Video</string>
+
+    <string name="interstitialads_view1">View 1</string>
+    <string name="interstitialads_view2">View 2</string>
+
+    <string name="title_activity_news_feed">NewsFeedActivity</string>
+
+    <string name="loading">loading Play Store&#8230;</string>
+</resources>

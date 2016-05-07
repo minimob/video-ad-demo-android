@@ -1,0 +1,73 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.+'
+    }
+}
+apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
+
+
+android {
+    signingConfigs {
+        MinimobAndroidKey {
+            keyAlias 'MinimobAndroidKey'
+            keyPassword 'c8b449e8a27eea519da6f0ae55e64ca2c9002b7d0f46868e337a83c65e294bdd'
+            storeFile file('./minimobAndroidKeyStore.jks')
+            storePassword 'c8b449e8a27eea519da6f0ae55e64ca2c9002b7d0f46868e337a83c65e294bdd'
+        }
+    }
+    compileSdkVersion 23
+    buildToolsVersion '23.0.2'
+    defaultConfig {
+        applicationId 'com.minimob.addemos'
+        minSdkVersion 16
+        targetSdkVersion 23
+        versionCode 24
+        versionName "1.0.24"
+
+        // Enabling multidex support.
+        multiDexEnabled true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.MinimobAndroidKey
+        }
+    }
+    productFlavors {
+        // Define separate dev and prod product flavors.
+        dev {
+            // dev utilizes minSDKVersion = 21 to allow the Android gradle plugin
+            // to pre-dex each module and produce an APK that can be tested on
+            // Android Lollipop without time consuming dex merging processes.
+            minSdkVersion 21
+        }
+        prod {
+            // The actual minSdkVersion for the application.
+            minSdkVersion 16
+        }
+    }
+
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile project(':minimob-adserving')
+    compile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') {
+        transitive = true;
+    }
+    compile 'com.android.support:appcompat-v7:23.3.0'
+    compile 'com.android.support:design:23.3.0'
+    compile 'com.android.support:support-v4:23.3.0'
+    compile 'com.android.support:multidex:1.0.1'
+}
