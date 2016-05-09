@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.minimob.addemos.R;
 
+import com.minimob.adserving.adzones.AdTag;
 import com.minimob.adserving.adzones.AdZone;
 import com.minimob.adserving.adzones.AdZoneVideo;
 import com.minimob.adserving.controllers.MinimobAdController;
@@ -27,7 +28,6 @@ public class VideoFragment extends MinimobBaseFragment
     private static final String TAG = VideoFragment.class.getSimpleName();
 
     Button video_btnFullscreen_play;
-    String adTag = AdTagHelper.getInstance().getMinimobScript(true, false);
     AdZoneVideo adZoneVideo;
 
     public VideoFragment()
@@ -147,8 +147,10 @@ public class VideoFragment extends MinimobBaseFragment
                 }
             });
 
+            // TEST ADTAG
+            AdTag adTag = new AdTag(getContext(), AdTagHelper.getInstance().getMinimobScript(true));
+            adTag.setCustomTrackingData("some tracking data");
             MinimobAdController.getInstance().getVideo(_activity, adTag);
-
         }
         catch (Exception ex)
         {

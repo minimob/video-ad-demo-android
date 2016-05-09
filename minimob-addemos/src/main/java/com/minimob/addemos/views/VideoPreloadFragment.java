@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.minimob.addemos.R;
 
+import com.minimob.adserving.adzones.AdTag;
 import com.minimob.adserving.adzones.AdZone;
 import com.minimob.adserving.adzones.AdZoneVideoPreloaded;
 import com.minimob.adserving.controllers.MinimobAdController;
@@ -29,7 +30,6 @@ public class VideoPreloadFragment extends MinimobBaseFragment
     private static final String TAG = VideoPreloadFragment.class.getSimpleName();
 
     Button video_btnFullscreen_play;
-    String adTag = AdTagHelper.getInstance().getMinimobScript(true, true);
     AdZoneVideoPreloaded adZoneVideoPreloaded;
 
     public VideoPreloadFragment()
@@ -119,20 +119,20 @@ public class VideoPreloadFragment extends MinimobBaseFragment
                     adZoneVideoPreloaded = (AdZoneVideoPreloaded) adZone;
                     if (adZoneVideoPreloaded != null)
                     {
-//                        adZoneVideoPreloaded.setAdsAvailableListener(new IAdsAvailableListener()
-//                        {
-//                            @Override
-//                            public void onAdsAvailable(AdZone adZone)
-//                            {
-//                                MinimobHelper.getInstance().ShowProgress(abProgress, _activity, false);
+                        adZoneVideoPreloaded.setAdsAvailableListener(new IAdsAvailableListener()
+                        {
+                            @Override
+                            public void onAdsAvailable(AdZone adZone)
+                            {
+                                MinimobHelper.getInstance().showProgress(abProgress, _activity, false);
 //                                MinimobHelper.getInstance().showToast(_activity, "ads available " + adZone.timeCreated, Toast.LENGTH_SHORT);
-//                            }
-//                        });
+                            }
+                        });
                         adZoneVideoPreloaded.setAdsNotAvailableListener(new IAdsNotAvailableListener() {
                             @Override
                             public void onAdsNotAvailable(AdZone adZone) {
                                 MinimobHelper.getInstance().showProgress(abProgress, _activity, false);
-                                //MinimobHelper.getInstance().showToast(_activity, "ads NOT available " + adZone.timeCreated, Toast.LENGTH_SHORT);
+//                                MinimobHelper.getInstance().showToast(_activity, "ads NOT available " + adZone.timeCreated, Toast.LENGTH_SHORT);
                             }
                         });
                         adZoneVideoPreloaded.setVideoLoadingListener(new IVideoLoadingListener() {
@@ -177,8 +177,10 @@ public class VideoPreloadFragment extends MinimobBaseFragment
                 }
             });
 
+            // TEST ADTAG
+            AdTag adTag = new AdTag(getContext(), AdTagHelper.getInstance().getMinimobScript(true));
+            adTag.setCustomTrackingData("some tracking data");
             MinimobAdController.getInstance().getVideoPreloaded(_activity, adTag);
-
         }
         catch (Exception ex)
         {

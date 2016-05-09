@@ -48,6 +48,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Method;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -132,128 +134,6 @@ public class MinimobHelper
     //endregion CONSTRUCTORS
 
     //region AdTag Settings
-    public boolean checkWifiConnectivity(Context ctx)
-    {
-        try
-        {
-            ConnectivityManager connManager = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo netInfo = connManager.getActiveNetworkInfo();
-            return netInfo != null && netInfo.getType() == ConnectivityManager.TYPE_WIFI &&  netInfo.isConnected();
-        }
-        catch (Exception ex)
-        {
-            ex.printStackTrace();
-            Log.e(TAG + "-" + "checkWifiConnectivity", ex.getMessage());
-        }
-        return false;
-    }
-
-    private int getMNC(Context ctx)
-    {
-        int mnc = 0;
-        try
-        {
-            TelephonyManager telephonyManager = (TelephonyManager) ctx.getSystemService(Context.TELEPHONY_SERVICE);
-
-            if(telephonyManager != null)
-            {
-                String networkOperator = telephonyManager.getNetworkOperator();
-
-                if (networkOperator != null && !networkOperator.isEmpty())
-                {
-                    mnc = Integer.parseInt(networkOperator.substring(3));
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            ex.printStackTrace();
-            Log.e(TAG + "-" + "getMCC", ex.getMessage());
-        }
-        return mnc;
-    }
-
-    private int getMCC(Context ctx)
-    {
-        int mcc = 0;
-        try
-        {
-            TelephonyManager telephonyManager = (TelephonyManager) ctx.getSystemService(Context.TELEPHONY_SERVICE);
-
-            if (telephonyManager != null)
-            {
-                String networkOperator = telephonyManager.getNetworkOperator();
-
-                if (networkOperator != null && !networkOperator.isEmpty())
-                {
-                    mcc = Integer.parseInt(networkOperator.substring(0, 3));
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            ex.printStackTrace();
-            Log.e(TAG + "-" + "getMCC", ex.getMessage());
-        }
-
-        return mcc;
-    }
-
-    private String getIMEI(Context ctx)
-    {
-        String imei = "";
-        try
-        {
-            TelephonyManager telephonyManager = (TelephonyManager) ctx.getSystemService(Context.TELEPHONY_SERVICE);
-
-            if (telephonyManager != null)
-            {
-                imei = telephonyManager.getDeviceId();
-            }
-        }
-        catch (Exception ex)
-        {
-            ex.printStackTrace();
-            Log.e(TAG + "-" + "getIMEI", ex.getMessage());
-        }
-        return imei;
-    }
-
-    // NOTE: This method CANNOT be run from the UI thread.
-//    public void getGAID(final Context ctx)
-//    {
-//        new Thread(new Runnable()
-//        {
-//            @Override
-//            public void run()
-//            {
-//                // Moves the current Thread into the background
-//                android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
-//
-//                AdvertisingIdClient.AdInfo adInfo = null;
-//                try
-//                {
-//                    adInfo = AdvertisingIdClient.getAdvertisingIdInfo(ctx);
-//                    final String id = adInfo.getId();
-//                    //final boolean isLAT = adInfo.isLimitAdTrackingEnabled();
-//                    gaid = id;
-//                }
-//                catch (Exception ex)
-//                {
-//                    // Unrecoverable error connecting to Google Play services (e.g.,
-//                    // the old version of the service doesn't support getting AdvertisingId).
-//                    ex.printStackTrace();
-//                    Log.e(TAG + "-" + "getGAID", ex.getMessage());
-//                }
-//            }
-//        }).start();
-//    }
-
-    private float getDeviceDensity(Context ctx)
-    {
-        return ctx.getResources().getDisplayMetrics().density;
-    }
-
     private int[] getWebViewDimensions(WebView webView)
     {
         int width = webView.getWidth();
@@ -264,82 +144,6 @@ public class MinimobHelper
         dims[1] = height;
 
         return dims;
-    }
-
-    private int[] getScreenDimensions(Context ctx)
-    {
-        WindowManager windowManager = (WindowManager) ctx.getSystemService(Context.WINDOW_SERVICE);
-        Display display = windowManager.getDefaultDisplay();
-
-        DisplayMetrics metrics = new DisplayMetrics();
-        display.getMetrics(metrics);
-        int width = metrics.widthPixels;
-        int height = metrics.heightPixels;
-
-        int[] dims = new int[2];
-        dims[0] = width;
-        dims[1] = height;
-
-        return dims;
-    }
-
-    private String getAndroidId(Context ctx)
-    {
-        return Settings.Secure.getString(ctx.getContentResolver(), Settings.Secure.ANDROID_ID);
-    }
-
-    private double[] getLatLon(Context ctx)
-    {
-        double[] latlon = new double[2];
-        LocationManager locationManager = (LocationManager) ctx.getSystemService(Context.LOCATION_SERVICE);
-
-        if (locationManager == null)
-        {
-            return latlon;
-        }
-
-        // getting GPS status
-        boolean isGPSEnabled = locationManager
-                .isProviderEnabled(LocationManager.GPS_PROVIDER);
-
-        // getting network status
-        boolean isNetworkEnabled = locationManager
-                .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-
-        if (!isGPSEnabled && !isNetworkEnabled) {
-            latlon[0] = 0;
-            latlon[1] = 0;
-        }
-        else
-        {
-            Location location = null;
-            if (isNetworkEnabled)
-            {
-                // Assume thisActivity is the current activity
-                if (checkPermission(ctx, Manifest.permission.ACCESS_COARSE_LOCATION))
-                {
-                    location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                }
-            }
-
-            // if GPS Enabled get lat/long using GPS Services
-            if (isGPSEnabled)
-            {
-                // Assume thisActivity is the current activity
-                if (checkPermission(ctx, Manifest.permission.ACCESS_FINE_LOCATION))
-                {
-                    location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                }
-            }
-
-            if (location != null)
-            {
-                latlon[0] = location.getLatitude();
-                latlon[1] = location.getLongitude();
-            }
-        }
-
-        return latlon;
     }
     //endregion AdTag Settings
 
@@ -358,46 +162,29 @@ public class MinimobHelper
 
     public MinimobWebView loadMinimobWebView(MinimobWebView minimobWebView, Activity activity, String minimobScript, boolean isInterstitial, boolean isFullScreen, boolean isVideo)
     {
-        MinimobWebView result = minimobWebView;
-
         // initialize webview in case it came from an inflated webview
-        result.init(activity, isInterstitial, isFullScreen, isVideo);
-
-//        // check for cached webview first
-//        if (adListener.isCachingEnabled() && !isVideo)
-//        {
-//            // check if we have it cached
-//            MinimobWebView cachedWebView = adListener.getWebView(minimobWebView.getWebViewId());
-//
-//            // we check for the ids to be the same due to a weird bug.
-//            if (cachedWebView != null && cachedWebView.getWebViewId().equals(minimobWebView.getWebViewId()))
-//            {
-//                result = cachedWebView;
-//                Log.d(TAG + "-" + "loadMinimobWebView", "Restored webView with webViewId " + minimobWebView.getWebViewId() + " from the cached webview with id " + cachedWebView.getWebViewId());
-//                return result;
-//            }
-//        }
+        minimobWebView.init(activity, isInterstitial, isFullScreen, isVideo);
 
         if (!minimobScript.isEmpty())
         {
-            String html = generateHtml(activity.getApplicationContext(), minimobScript, isVideo, result);
+            String html = generateHtml(minimobScript, isVideo, minimobWebView);
 
             // load url
-            result.loadDataWithBaseURL(AdTagHelper.getInstance().baseUrl, html, "text/html", "utf-8", null);
-            Log.d(TAG + "-" + "loadMinimobWebView", "Loaded the url to webView with webViewId " + result.getWebViewId());
+            minimobWebView.loadDataWithBaseURL(AdTagHelper.getInstance().baseUrl, html, "text/html", "utf-8", null);
+            Log.d(TAG + "-" + "loadMinimobWebView", "Loaded the url to webView with webViewId " + minimobWebView.getWebViewId());
         }
 
-        return result;
+        return minimobWebView;
     }
 
-    private String generateHtml(Context ctx, String minimobScript, boolean isVideo, MinimobWebView minimobWebView)
+    private String generateHtml(String minimobScript, boolean isVideo, MinimobWebView minimobWebView)
     {
         StringBuffer processedHtml = new StringBuffer();
 
         try
         {
-            // first fill in the adTag settings
-            String processedMinimobScript = fillInAdTagSettings(ctx, minimobScript, minimobWebView);
+            // first replace the adTag settings
+            String processedMinimobScript = setAdTagSettings(minimobScript, minimobWebView);
 
             // begin building the rest of the Html
             processedHtml = new StringBuffer(processedMinimobScript);
@@ -415,7 +202,9 @@ public class MinimobHelper
             }
             //<script src="http://172.30.8.123:8080/target/target-script-min.js#anonymous"></script>
             processedHtml.insert(0, "<html>" + ls + "<head>" + ls +/*"<script src=\"http://172.30.6.171:8085/target/target-script-min.js#anonymous\"></script>"+*/ "</head>" + ls + body + /*"<div align='center'>" +*/ ls);
-            processedHtml.append(/*"</div></body>"*/"</body>" + ls + "</html>");
+            processedHtml.append(/*"</div></body>"*/"</body>");
+            processedHtml.append(ls);
+            processedHtml.append("</html>");
 
             // Add meta tag to head tag.
             String metaTag = "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, maximum-scale=1\">";
@@ -438,34 +227,17 @@ public class MinimobHelper
         return processedHtml.toString();
     }
 
-    private String fillInAdTagSettings(Context ctx, String minimobScript, MinimobWebView minimobWebView)
+    private String setAdTagSettings(String minimobScript, MinimobWebView minimobWebView)
     {
         try
         {
-            minimobScript = setAdTagSetting("[imei]", getIMEI(ctx), minimobScript);
-            minimobScript = setAdTagSetting("[android_id]", getAndroidId(ctx), minimobScript);
-            minimobScript = setAdTagSetting("[gaid]", gaid, minimobScript);
-            minimobScript = setAdTagSetting("[idfa]", "", minimobScript);
-            minimobScript = setAdTagSetting("[idfv]", "", minimobScript);
-            minimobScript = setAdTagSetting("[category]", "", minimobScript);
-            minimobScript = setAdTagSetting("[age]", "", minimobScript);
-            minimobScript = setAdTagSetting("[gender]", "", minimobScript);
-            minimobScript = setAdTagSetting("[keywords]", "", minimobScript);
-            minimobScript = setAdTagSetting("[lat]", String.valueOf(getLatLon(ctx)[0]), minimobScript);
-            minimobScript = setAdTagSetting("[lon]", String.valueOf(getLatLon(ctx)[1]), minimobScript);
-            minimobScript = setAdTagSetting("[device_width]", String.valueOf(getScreenDimensions(ctx)[0]), minimobScript);
-            minimobScript = setAdTagSetting("[device_height]", String.valueOf(getScreenDimensions(ctx)[1]), minimobScript);
-            minimobScript = setAdTagSetting("[mnc]", String.valueOf(getMNC(ctx)), minimobScript);
-            minimobScript = setAdTagSetting("[mcc]", String.valueOf(getMCC(ctx)), minimobScript);
-            minimobScript = setAdTagSetting("[wifi]", String.valueOf(checkWifiConnectivity(ctx)), minimobScript);
             minimobScript = setAdTagSetting("[placement_width]", String.valueOf(getWebViewDimensions(minimobWebView)[0]), minimobScript);
             minimobScript = setAdTagSetting("[placement_height]", String.valueOf(getWebViewDimensions(minimobWebView)[0]), minimobScript);
-            minimobScript = setAdTagSetting("[android_version]", String.valueOf(Build.VERSION.SDK_INT), minimobScript);
         }
         catch (Exception ex)
         {
             ex.printStackTrace();
-            Log.e(TAG + "-" + "fillInAdTagSettings", ex.getMessage());
+            Log.e(TAG + "-" + "setAdTagSettings", ex.getMessage());
         }
 
         return minimobScript;
@@ -538,35 +310,8 @@ public class MinimobHelper
         return "";
     }
 
-    public String getUniqueCustomDataId()
+    public boolean checkConnectivity(Context ctx)
     {
-        try
-        {
-            String deviceId;
-            String serial;
-            try
-            {
-                deviceId = "36" + (Build.BRAND.length() % 10) + (Build.DEVICE.length() % 10) + (Build.MANUFACTURER.length() % 10) + (Build.MODEL.length() % 10);
-                serial = Build.class.getField("SERIAL").get(null).toString();
-                return new UUID(deviceId.hashCode(), serial.hashCode()).toString();
-            }
-            catch (Exception ex)
-            {
-                Log.e(TAG, ex.getMessage());
-                serial = "serial";
-                deviceId = "deviceid";
-            }
-            return new UUID(deviceId.hashCode(), serial.hashCode()).toString();
-        }
-        catch (Exception ex)
-        {
-            ex.printStackTrace();
-            Log.e(TAG + "-" + "getUniqueCustomDataId", ex.getMessage());
-        }
-        return "";
-    }
-
-    public boolean checkConnectivity(Context ctx) {
         try
         {
             ConnectivityManager conMgr = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -817,7 +562,7 @@ public class MinimobHelper
         v.setVisibility(View.GONE);
     }
 
-    private boolean checkPermission(Context ctx, String permission)
+    public boolean checkPermission(Context ctx, String permission)
     {
         //int res = ctx.checkSelfPermission(permission);
         int res = ctx.checkCallingOrSelfPermission(permission);
@@ -1073,40 +818,33 @@ public class MinimobHelper
         }
     }
 
-//    public <Type> Type GetObjectFromJSONString(String sObj, java.lang.Class<Type> classOfT)
-//    {
-//        try
-//        {
-//            GsonBuilder gsonBuilder = new GsonBuilder();
-//            gsonBuilder
-//                    //.setPrettyPrinting()
-//                    .serializeNulls()
-//            ;
-//
-//            Gson gson = gsonBuilder.create();
-//
-//            return gson.fromJson(sObj, classOfT);
-//        }
-//        catch (Exception ex)
-//        {
-//            Log.e(TAG, "GetObjectFromJSONString" + " (" + classOfT.getSimpleName() + ")", ex);
-//            return null;
-//        }
-//    }
-//
-//    public String GetJSONStringFromObject(Object o)
-//    {
-//        try
-//        {
-//            Gson gson = new Gson();
-//            return gson.toJson(o);
-//        }
-//        catch (Exception ex)
-//        {
-//            Log.e(TAG, "GetJSONStringFromObject", ex);
-//            return "";
-//        }
-//    }
+    public final String getMD5(final String s)
+    {
+        final String MD5 = "MD5";
+        try
+        {
+            // Create MD5 Hash
+            MessageDigest digest = MessageDigest.getInstance(MD5);
+            digest.update(s.getBytes());
+            byte messageDigest[] = digest.digest();
 
+            // Create Hex String
+            StringBuilder hexString = new StringBuilder();
+            for (byte aMessageDigest : messageDigest)
+            {
+                String h = Integer.toHexString(0xFF & aMessageDigest);
+                while (h.length() < 2)
+                    h = "0" + h;
+                hexString.append(h);
+            }
+            return hexString.toString();
+        }
+        catch (NoSuchAlgorithmException ex)
+        {
+            ex.printStackTrace();
+            Log.e(TAG + "-" + "getMD5", ex.getMessage());
+        }
+        return "";
+    }
     //endregion Misc
 }

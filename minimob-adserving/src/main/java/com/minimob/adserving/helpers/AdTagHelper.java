@@ -40,7 +40,7 @@ public class AdTagHelper
     //endregion CONSTRUCTORS
 
     //region METHODS
-    public String getMinimobScript(boolean isVideo, boolean preloadVideo)
+    public String getMinimobScript(boolean isVideo)
     {
         String baseJS = isVideo ? "video-fullscreen-mmji.js" : "minimob.js";
         // cache busting
@@ -57,8 +57,6 @@ public class AdTagHelper
                 :
                 ""
                 ;
-
-        String customTrackingData = MinimobHelper.getInstance().getUniqueCustomDataId();
 
         String minimobScript = "<script>\n" +
                 "\t\tvar mmAdTagSettings = {\n" +
@@ -81,8 +79,8 @@ public class AdTagHelper
                 "\t\t\tandroid_version: \"[android_version]\",\n" +
                 "\t\t\tplacement_width: \"[placement_width]\",\n" +
                 "\t\t\tplacement_height: \"[placement_height]\",\n" +
-                "\t\t\tpreload: " + preloadVideo + ",\n" +
-                "\t\t\tcustom_tracking_data: \"" + customTrackingData + "\"\n" +
+                "\t\t\tpreload: \"[preload]\",\n" +
+                "\t\t\tcustom_tracking_data: \"[customTrackingData]\"\n" +
                 "\t\t};\n" +
                 "\n" +
                 "\t\tvar mmAdTagSettings_auto = {\n" +

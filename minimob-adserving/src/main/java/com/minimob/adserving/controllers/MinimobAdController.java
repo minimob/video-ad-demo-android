@@ -4,12 +4,12 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.minimob.adserving.adzones.AdTag;
 import com.minimob.adserving.adzones.AdZone;
 import com.minimob.adserving.adzones.AdZoneVideo;
 import com.minimob.adserving.adzones.AdZoneVideoPreloaded;
 import com.minimob.adserving.helpers.AdZoneType;
 import com.minimob.adserving.helpers.AdvertisingIdClient;
-import com.minimob.adserving.helpers.MinimobHelper;
 import com.minimob.adserving.interfaces.IAdZoneCompleted;
 import com.minimob.adserving.interfaces.IAdZoneCreatedListener;
 import com.minimob.adserving.views.MinimobBaseActivity;
@@ -55,8 +55,9 @@ public class MinimobAdController {
         return _instance;
     }
 
-    public void getVideo(final Activity activity, final String adTag)
+    public void getVideo(final Activity activity, final AdTag adTag)
     {
+        adTag.setPreload(false);
         if (!_initialized)
         {
             new AsyncTask<Activity, Void, String>()
@@ -97,8 +98,8 @@ public class MinimobAdController {
                 protected void onPostExecute(String s) {
                     super.onPostExecute(s);
                     gaid = s;
-                    MinimobHelper.getInstance().gaid = gaid;
-                    AdZoneVideo az = _getVideo(activity, adTag);
+                    adTag.setGaid(gaid);
+                    AdZoneVideo az = _getVideo(activity, adTag.getAdTag());
                     //call listener
                     if (_adZoneCreatedListener != null){
                         _adZoneCreatedListener.onAdZoneCreated(az);
@@ -108,7 +109,7 @@ public class MinimobAdController {
         }
         else
         {
-            AdZoneVideo az = _getVideo(activity, adTag);
+            AdZoneVideo az = _getVideo(activity, adTag.getAdTag());
             if (_adZoneCreatedListener != null) {
                 _adZoneCreatedListener.onAdZoneCreated(az);
             }
@@ -155,8 +156,9 @@ public class MinimobAdController {
         return (AdZoneVideo) adZone;
     }
 
-    public void getVideoPreloaded(final Activity activity, final String adTag)
+    public void getVideoPreloaded(final Activity activity, final AdTag adTag)
     {
+        adTag.setPreload(true);
         if (!_initialized)
         {
             new AsyncTask<Activity, Void, String>()
@@ -198,8 +200,8 @@ public class MinimobAdController {
                 {
                     super.onPostExecute(s);
                     gaid = s;
-                    MinimobHelper.getInstance().gaid = gaid;
-                    AdZoneVideoPreloaded az = _getVideoPreloaded(activity, adTag);
+                    adTag.setGaid(gaid);
+                    AdZoneVideoPreloaded az = _getVideoPreloaded(activity, adTag.getAdTag());
                     //call listener
                     if (_adZoneCreatedListener != null){
                         _adZoneCreatedListener.onAdZoneCreated(az);
@@ -209,7 +211,7 @@ public class MinimobAdController {
         }
         else
         {
-            AdZoneVideoPreloaded az = _getVideoPreloaded(activity, adTag);
+            AdZoneVideoPreloaded az = _getVideoPreloaded(activity, adTag.getAdTag());
             if (_adZoneCreatedListener != null) {
                 _adZoneCreatedListener.onAdZoneCreated(az);
             }
