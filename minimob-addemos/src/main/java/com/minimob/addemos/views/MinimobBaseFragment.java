@@ -40,22 +40,22 @@ public class MinimobBaseFragment extends Fragment
     //endregion OVERRIDES
 
     //region Public Methods
-    protected void showProgress(ProgressBar abProgress, Activity activity, final boolean show)
+    protected void showProgress(final boolean show)
     {
         try
         {
             if (show)
             {
-                this.showActionBarProgress(abProgress, activity.getApplicationContext());
+                this.showActionBarProgress(abProgress, _activity.getApplicationContext());
             }
             else
             {
-                this.hideActionBarProgress(abProgress, activity.getApplicationContext());
+                this.hideActionBarProgress(abProgress, _activity.getApplicationContext());
             }
         }
         catch (Exception ex)
         {
-            MinimobBaseActivity.HandleCrash(TAG, ex);
+            _activity.HandleCrash(TAG, ex);
         }
     }
 
