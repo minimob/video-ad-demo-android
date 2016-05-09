@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 
+import com.minimob.adserving.adzones.AdStatus;
 import com.minimob.adserving.common.MinimobWebView;
 import com.minimob.adserving.interfaces.IMinimobWebViewLoadedListener;
 
@@ -36,7 +37,7 @@ public class MinimobJSInterface extends AppCompatActivity
                 @Override
                 public void run()
                 {
-                    minimobWebView.setAdStatus(MinimobHelper.AdStatus.ADS_AVAILABLE);
+                    minimobWebView.setAdStatus(AdStatus.ADS_AVAILABLE);
                     _minimobWebViewLoadedListener.onMinimobWebViewLoaded(minimobWebView);
                 }
             });
@@ -55,17 +56,11 @@ public class MinimobJSInterface extends AppCompatActivity
                 @Override
                 public void run()
                 {
-                    minimobWebView.setAdStatus(MinimobHelper.AdStatus.ADS_NOT_AVAILABLE);
+                    minimobWebView.setAdStatus(AdStatus.ADS_NOT_AVAILABLE);
                     _minimobWebViewLoadedListener.onMinimobWebViewLoaded(minimobWebView);
                 }
             });
         }
-    }
-
-    @JavascriptInterface
-    public String GetGAID()
-    {
-        return MinimobHelper.getInstance().gaid;
     }
 
     public void setMinimobWebViewLoadedListener(IMinimobWebViewLoadedListener listener) {

@@ -17,7 +17,7 @@ public class MinimobBaseActivity extends AppCompatActivity
     public static String TAG = "MINIMOB";
     protected ProgressBar abProgress;
 
-    protected void HandleCrash(String tag, Throwable ex)
+    public static void HandleCrash(String tag, Throwable ex)
     {
         ex.printStackTrace();
         Log.d(TAG + "-" + tag, ex.getMessage(), ex);

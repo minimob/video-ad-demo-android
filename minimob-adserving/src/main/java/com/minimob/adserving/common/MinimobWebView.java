@@ -15,6 +15,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.minimob.adserving.adzones.AdStatus;
 import com.minimob.adserving.helpers.MinimobHelper;
 import com.minimob.adserving.helpers.MinimobJSInterface;
 
@@ -27,7 +28,7 @@ public class MinimobWebView extends WebView
     private WebViewClient webViewClient;
     private WebChromeClient webChromeClient;
     private Activity activity;
-    private MinimobHelper.AdStatus adStatus;
+    private AdStatus adStatus;
 
     public MinimobWebView(WebViewClient webViewClient, WebChromeClient webChromeClient, Activity activity)
     {
@@ -66,12 +67,12 @@ public class MinimobWebView extends WebView
         return this.webViewId;
     }
 
-    public void setAdStatus(MinimobHelper.AdStatus adStatus)
+    public void setAdStatus(AdStatus adStatus)
     {
         this.adStatus = adStatus;
     }
 
-    public MinimobHelper.AdStatus getAdStatus()
+    public AdStatus getAdStatus()
     {
         return this.adStatus;
     }
@@ -87,7 +88,7 @@ public class MinimobWebView extends WebView
     {
         try
         {
-            this.adStatus = MinimobHelper.AdStatus.AD_STATUS_UNKNOWN;
+            this.adStatus = AdStatus.AD_STATUS_UNKNOWN;
 
             this.webViewClient = webViewClient;
             this.webChromeClient = webChromeClient;

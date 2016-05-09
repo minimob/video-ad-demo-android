@@ -13,6 +13,7 @@ import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -27,7 +28,7 @@ import android.widget.RelativeLayout;
 import com.minimob.adserving.common.MinimobBaseView;
 import com.minimob.adserving.common.MinimobWebChromeClient;
 import com.minimob.adserving.common.MinimobWebView;
-import com.minimob.adserving.helpers.MinimobHelper;
+import com.minimob.adserving.helpers.AdTagHelper;
 import com.minimob.adserving.interfaces.IMinimobViewListener;
 import com.minimob.adserving.helpers.MinimobViewLog;
 import com.minimob.adserving.helpers.MinimobViewCommandParser;
@@ -43,6 +44,8 @@ import java.net.URL;
 import java.net.URLDecoder;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by v.prantzos on 19/4/2016.
@@ -164,7 +167,7 @@ public class MinimobView extends MinimobBaseView
         injectMinimobJSInterface(_webView);
 
         //load the ad to the container (
-        _webView = MinimobHelper.getInstance().loadMinimobWebView(_webView, _activity, this._minimobScript, isInterstitial, isFullScreen, isVideo);
+        _webView = loadMinimobWebView(_webView, _activity, this._minimobScript, isInterstitial, isFullScreen, isVideo);
 
         MinimobViewLog.d("log level = " + MinimobViewLog.getLoggingLevel());
         if (MinimobViewLog.getLoggingLevel() == MinimobViewLog.LOG_LEVEL.debug)
@@ -510,7 +513,7 @@ public class MinimobView extends MinimobBaseView
                             _webViewPart2 = createWebView();
                             injectMinimobJSInterface(_webViewPart2);
 
-                            _webViewPart2 = MinimobHelper.getInstance().loadMinimobWebView(_webViewPart2, _activity, MinimobView.this._minimobScript, _isInterstitial, _isFullScreen, _isVideo);
+                            _webViewPart2 = loadMinimobWebView(_webViewPart2, _activity, MinimobView.this._minimobScript, _isInterstitial, _isFullScreen, _isVideo);
 
                             _currentWebView = _webViewPart2;
                             expandHelper(_currentWebView);
@@ -1012,7 +1015,136 @@ public class MinimobView extends MinimobBaseView
     {
         expand(null);
     }
+
+    private void toggleWebViewVisibility(final MinimobWebView minimobWebView, boolean visible)
+    {
+        int visibility = visible ? View.VISIBLE : View.GONE;
+        // make webview visible
+        minimobWebView.setVisibility(visibility);
+
+        // make the container of the webview visible
+        ((View) minimobWebView.getParent()).setVisibility(visibility);
+
+        Log.i(TAG, "MinimobWebView with id:" + minimobWebView.getWebViewId() + " is " + (visible ? "visible" : "gone"));
+    }
     //endregion HELPERS
+
+    //region AdTag Settings
+    private static MinimobWebView loadMinimobWebView(MinimobWebView minimobWebView, Activity activity, String minimobScript, boolean isInterstitial, boolean isFullScreen, boolean isVideo)
+    {
+        // initialize webview in case it came from an inflated webview
+        minimobWebView.init(activity, isInterstitial, isFullScreen, isVideo);
+
+        if (!minimobScript.isEmpty())
+        {
+            String html = generateHtml(minimobScript, isVideo, minimobWebView);
+
+            // load url
+            minimobWebView.loadDataWithBaseURL(AdTagHelper.getInstance().baseUrl, html, "text/html", "utf-8", null);
+            Log.d(TAG + "-" + "loadMinimobWebView", "Loaded the url to webView with webViewId " + minimobWebView.getWebViewId());
+        }
+
+        return minimobWebView;
+    }
+
+    private static String generateHtml(String minimobScript, boolean isVideo, MinimobWebView minimobWebView)
+    {
+        StringBuffer processedHtml = new StringBuffer();
+
+        try
+        {
+            // first replace the adTag settings
+            String processedMinimobScript = setAdTagSettings(minimobScript, minimobWebView);
+
+            // begin building the rest of the Html
+            processedHtml = new StringBuffer(processedMinimobScript);
+            String ls = System.getProperty("line.separator");
+
+            String regex;
+            Pattern pattern;
+            Matcher matcher;
+
+            // Add html, head, and body tags.
+            String body = "<body>";
+            if (isVideo)
+            {
+                body = "<body style=\"background-color:#000000\">";
+            }
+            //<script src="http://172.30.8.123:8080/target/target-script-min.js#anonymous"></script>
+            processedHtml.insert(0, "<html>" + ls + "<head>" + ls +/*"<script src=\"http://172.30.6.171:8085/target/target-script-min.js#anonymous\"></script>"+*/ "</head>" + ls + body + /*"<div align='center'>" +*/ ls);
+            processedHtml.append(/*"</div></body>"*/"</body>");
+            processedHtml.append(ls);
+            processedHtml.append("</html>");
+
+            // Add meta tag to head tag.
+            String metaTag = "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, maximum-scale=1\">";
+
+            regex = "<head[^>]*>";
+            pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+            matcher = pattern.matcher(processedHtml);
+            int idx = 0;
+            while (matcher.find(idx)) {
+                processedHtml.insert(matcher.end(), ls + metaTag);
+                idx = matcher.end();
+            }
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+            Log.e(TAG + "-" + "generateHtml", ex.getMessage());
+        }
+
+        return processedHtml.toString();
+    }
+
+    private static String setAdTagSettings(String minimobScript, MinimobWebView minimobWebView)
+    {
+        try
+        {
+            minimobScript = setAdTagSetting("[placement_width]", String.valueOf(getWebViewDimensions(minimobWebView)[0]), minimobScript);
+            minimobScript = setAdTagSetting("[placement_height]", String.valueOf(getWebViewDimensions(minimobWebView)[0]), minimobScript);
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+            Log.e(TAG + "-" + "setAdTagSettings", ex.getMessage());
+        }
+
+        return minimobScript;
+    }
+
+    private static String setAdTagSetting(String container, String value, String text)
+    {
+        try
+        {
+            // if there is no value, then don't replace.
+            if (value==null || value.isEmpty())
+            {
+                return text;
+            }
+
+            text = text.replace(container, value);
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+            Log.e(TAG + "-" + "setAdTagSetting", ex.getMessage());
+        }
+        return text;
+    }
+
+    private static int[] getWebViewDimensions(WebView webView)
+    {
+        int width = webView.getWidth();
+        int height = webView.getHeight();
+
+        int[] dims = new int[2];
+        dims[0] = width;
+        dims[1] = height;
+
+        return dims;
+    }
+    //endregion AdTag
 
     //endregion METHODS
 

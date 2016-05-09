@@ -2,6 +2,7 @@ package com.minimob.adserving.adzones;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
@@ -16,6 +17,9 @@ import android.view.WindowManager;
 import android.webkit.WebView;
 
 import com.minimob.adserving.helpers.MinimobHelper;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Created by v.prantzos on 9/5/2016.
@@ -212,7 +216,7 @@ public class AdTag
             ex.printStackTrace();
             Log.e(TAG + "-" + "getIMEI", ex.getMessage());
         }
-        return MinimobHelper.getInstance().getMD5(imei);
+        return this.getMD5(imei);
     }
 
     private int[] getScreenDimensions()
@@ -235,7 +239,7 @@ public class AdTag
     private String getAndroidId()
     {
         String androidId = Settings.Secure.getString(_context.getContentResolver(), Settings.Secure.ANDROID_ID);
-        return MinimobHelper.getInstance().getMD5(androidId);
+        return this.getMD5(androidId);
     }
 
     private double[] getLatLon()
@@ -266,7 +270,7 @@ public class AdTag
             if (isNetworkEnabled)
             {
                 // Assume thisActivity is the current activity
-                if (MinimobHelper.getInstance().checkPermission(_context, Manifest.permission.ACCESS_COARSE_LOCATION))
+                if (this.checkPermission(_context, Manifest.permission.ACCESS_COARSE_LOCATION))
                 {
                     location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                 }
@@ -276,7 +280,7 @@ public class AdTag
             if (isGPSEnabled)
             {
                 // Assume thisActivity is the current activity
-                if (MinimobHelper.getInstance().checkPermission(_context, Manifest.permission.ACCESS_FINE_LOCATION))
+                if (this.checkPermission(_context, Manifest.permission.ACCESS_FINE_LOCATION))
                 {
                     location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                 }
@@ -290,6 +294,42 @@ public class AdTag
         }
 
         return latlon;
+    }
+
+    private boolean checkPermission(Context ctx, String permission)
+    {
+        //int res = ctx.checkSelfPermission(permission);
+        int res = ctx.checkCallingOrSelfPermission(permission);
+        return (res == PackageManager.PERMISSION_GRANTED);
+    }
+
+    private final String getMD5(final String s)
+    {
+        final String MD5 = "MD5";
+        try
+        {
+            // Create MD5 Hash
+            MessageDigest digest = MessageDigest.getInstance(MD5);
+            digest.update(s.getBytes());
+            byte messageDigest[] = digest.digest();
+
+            // Create Hex String
+            StringBuilder hexString = new StringBuilder();
+            for (byte aMessageDigest : messageDigest)
+            {
+                String h = Integer.toHexString(0xFF & aMessageDigest);
+                while (h.length() < 2)
+                    h = "0" + h;
+                hexString.append(h);
+            }
+            return hexString.toString();
+        }
+        catch (NoSuchAlgorithmException ex)
+        {
+            ex.printStackTrace();
+            Log.e(TAG + "-" + "getMD5", ex.getMessage());
+        }
+        return "";
     }
     //endregion Private Methods
 

@@ -76,7 +76,7 @@ public class VideoPreloadFragment extends MinimobBaseFragment
     {
         _activity.setTitle(this.titleRes);
         abProgress = (ProgressBar)_activity.findViewById(R.id.actionbar_progress);
-        MinimobHelper.getInstance().showProgress(abProgress, _activity, false);
+       this.showProgress(abProgress, _activity, false);
 
         try
         {
@@ -124,35 +124,35 @@ public class VideoPreloadFragment extends MinimobBaseFragment
                             @Override
                             public void onAdsAvailable(AdZone adZone)
                             {
-                                MinimobHelper.getInstance().showProgress(abProgress, _activity, false);
+                                showProgress(abProgress, _activity, false);
 //                                MinimobHelper.getInstance().showToast(_activity, "ads available " + adZone.timeCreated, Toast.LENGTH_SHORT);
                             }
                         });
                         adZoneVideoPreloaded.setAdsNotAvailableListener(new IAdsNotAvailableListener() {
                             @Override
                             public void onAdsNotAvailable(AdZone adZone) {
-                                MinimobHelper.getInstance().showProgress(abProgress, _activity, false);
+                                showProgress(abProgress, _activity, false);
 //                                MinimobHelper.getInstance().showToast(_activity, "ads NOT available " + adZone.timeCreated, Toast.LENGTH_SHORT);
                             }
                         });
                         adZoneVideoPreloaded.setVideoLoadingListener(new IVideoLoadingListener() {
                             @Override
                             public void onVideoLoading(AdZone adZone) {
-                                MinimobHelper.getInstance().showProgress(abProgress, _activity, true);
+                                showProgress(abProgress, _activity, true);
                                 MinimobHelper.getInstance().showToast(_activity, "video loading " + adZone.timeCreated, Toast.LENGTH_SHORT);
                             }
                         });
                         adZoneVideoPreloaded.setVideoLoadedListener(new IVideoLoadedListener() {
                             @Override
                             public void onVideoLoaded(AdZone adZone) {
-                                MinimobHelper.getInstance().showProgress(abProgress, _activity, false);
+                                showProgress(abProgress, _activity, false);
                                 MinimobHelper.getInstance().showToast(_activity, "video loaded " + adZone.timeCreated, Toast.LENGTH_SHORT);
                             }
                         });
                         adZoneVideoPreloaded.setVideoPlayingListener(new IVideoPlayingListener() {
                             @Override
                             public void onVideoPlaying(AdZone adZone) {
-                                MinimobHelper.getInstance().showProgress(abProgress, _activity, false);
+                                showProgress(abProgress, _activity, false);
                                 //MinimobHelper.getInstance().showToast(_activity, "video playing " + adZone.timeCreated, Toast.LENGTH_SHORT);
 
                                 _setupAdZone();

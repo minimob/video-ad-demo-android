@@ -3,9 +3,13 @@ package com.minimob.addemos.views;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.minimob.addemos.R;
-import com.minimob.adserving.helpers.MinimobHelper;
 import com.minimob.adserving.helpers.MinimobViewLog;
 
 
@@ -53,7 +56,7 @@ public class MinimobDemoActivity extends MinimobBaseActivity implements Navigati
                 navigationView.setNavigationItemSelectedListener(this);
             }
 
-            MinimobHelper.getInstance().showFragment(this, R.id.container, new BlankAdFragment());
+            this.showFragment(this, R.id.container, new BlankAdFragment());
 
             // set minimobjsinterface log level
             MinimobViewLog.setLoggingLevel(MinimobViewLog.LOG_LEVEL.info);
@@ -101,12 +104,12 @@ public class MinimobDemoActivity extends MinimobBaseActivity implements Navigati
         if (id == R.id.videos_fullscreen)
         {
             VideoFragment adFragment = new VideoFragment();
-            MinimobHelper.getInstance().showFragment(this, R.id.container, adFragment);
+            this.showFragment(this, R.id.container, adFragment);
         }
         else if (id == R.id.videos_fullscreen_preloaded)
         {
             VideoPreloadFragment adFragment = new VideoPreloadFragment();
-            MinimobHelper.getInstance().showFragment(this, R.id.container, adFragment);
+            this.showFragment(this, R.id.container, adFragment);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -138,6 +141,27 @@ public class MinimobDemoActivity extends MinimobBaseActivity implements Navigati
         super.onConfigurationChanged(newConfig);
     }
     // endregion OVERRIDES
+
+    //region METHODS
+    private void showFragment(AppCompatActivity activity, int container, Fragment fragment)
+    {
+        // update the main content by replacing fragments
+        FragmentManager fragmentManager = activity.getSupportFragmentManager();
+
+        if (fragment != null)
+        {
+            String tag = ((Object) fragment).getClass().toString();
+            fragmentManager.beginTransaction()
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .replace(container, fragment, tag)
+                    // DON'T add to the stack!
+                    //.addToBackStack(null)
+                    .commit();
+
+            fragmentManager.executePendingTransactions();
+        }
+    }
+    //endregion METHODS
 
 //    public void minimobWebViewLoaded(final MinimobWebView minimobWebView)
 //    {

@@ -375,7 +375,7 @@ public class AdZoneVideo extends AdZone implements IMinimobViewListener
             }
         });
 
-        MinimobHelper.getInstance().clickAdUrl(_activity, url, this);
+        this.clickAdUrl(_activity, url, this);
     }
 
     //endregion IMinimobViewListener implementation
