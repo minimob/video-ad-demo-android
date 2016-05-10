@@ -167,7 +167,7 @@ public class VideoFragment extends MinimobBaseFragment
                     " android_version: \"[android_version]\", \n" +
                     " placement_width: \"[placement_width]\", \n" +
                     " placement_height: \"[placement_height]\", \n" +
-                    " preload: false, \n" +
+                    " preload: \"[preload]\", \n" +
                     " custom_tracking_data: \"[custom_tracking_data]\"}; \n" +
                     " \n" +
                     " var mmAdTagSettings_auto = { \n" +
