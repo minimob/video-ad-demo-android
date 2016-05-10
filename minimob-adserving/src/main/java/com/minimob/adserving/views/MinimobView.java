@@ -28,7 +28,6 @@ import android.widget.RelativeLayout;
 import com.minimob.adserving.common.MinimobBaseView;
 import com.minimob.adserving.common.MinimobWebChromeClient;
 import com.minimob.adserving.common.MinimobWebView;
-import com.minimob.adserving.helpers.AdTagHelper;
 import com.minimob.adserving.interfaces.IMinimobViewListener;
 import com.minimob.adserving.helpers.MinimobViewLog;
 import com.minimob.adserving.helpers.MinimobViewCommandParser;
@@ -54,6 +53,7 @@ public class MinimobView extends MinimobBaseView
 {
     //region VARIABLES
     private final static String TAG = MinimobView.class.getSimpleName();
+    private static String baseUrl = "http://s.rtad.bid/";
 
     public final static int STATE_LOADING = 0;
     public final static int STATE_DEFAULT = 1;
@@ -1040,7 +1040,7 @@ public class MinimobView extends MinimobBaseView
             String html = generateHtml(minimobScript, isVideo, minimobWebView);
 
             // load url
-            minimobWebView.loadDataWithBaseURL(AdTagHelper.getInstance().baseUrl, html, "text/html", "utf-8", null);
+            minimobWebView.loadDataWithBaseURL(baseUrl, html, "text/html", "utf-8", null);
             Log.d(TAG + "-" + "loadMinimobWebView", "Loaded the url to webView with webViewId " + minimobWebView.getWebViewId());
         }
 
