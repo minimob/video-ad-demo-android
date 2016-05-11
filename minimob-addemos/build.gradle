@@ -30,8 +30,8 @@ android {
         applicationId 'com.minimob.addemos'
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 25
-        versionName "1.0.25"
+        versionCode 26
+        versionName "1.0.26"
 
         // Enabling multidex support.
         multiDexEnabled true
@@ -70,5 +70,5 @@ dependencies {
     compile 'com.android.support:support-v4:23.3.0'
     compile 'com.android.support:multidex:1.0.1'
 
-    compile 'com.github.minimob:video-ad-serving:1.0.25'
+    compile 'com.github.minimob:video-ad-serving:1.0.26'
 }
