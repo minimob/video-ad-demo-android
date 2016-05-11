@@ -211,8 +211,7 @@ private void _setupAdZone()
                 adZoneVideoPreloaded.setAdsAvailableListener(new IAdsAvailableListener()
                 {
                     @Override
-                    public void onAdsAvailable(AdZone adZone)
-                    {
+                    public void onAdsAvailable(AdZone adZone) {
                         showProgress(false);
                     }
                 });
@@ -286,8 +285,7 @@ The <strong>adZoneVideoPreloaded.load</strong> call only loads the video. A sepa
                 adZoneVideoPreloaded.setAdsAvailableListener(new IAdsAvailableListener()
                 {
                     @Override
-                    public void onAdsAvailable(AdZone adZone)
-                    {
+                    public void onAdsAvailable(AdZone adZone) {
                         showProgress(false);
                     }
                 });
