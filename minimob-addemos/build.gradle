@@ -70,5 +70,5 @@ dependencies {
     compile 'com.android.support:support-v4:23.3.0'
     compile 'com.android.support:multidex:1.0.1'
 
-    compile 'com.github.minimob:video-ad-serving:1.0.24'
+    compile 'com.github.minimob:video-ad-serving:1.0.25'
 }
