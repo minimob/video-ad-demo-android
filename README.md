@@ -79,9 +79,9 @@ private void _setupAdZone()
 
 <p>In the <strong>_setupAdZone</strong> method:</p>
 <ul>
-<li>Use <strong>setAdZoneCreatedListener</strong> of <strong>MinimobAdController</strong> and override the <strong>onAdZoneCreated</strong> method. In this method the <strong>adZone</strong> is returned.
-In the <strong>onAdZoneCreated</strong> method, you can optionally set listeners for events such as: <strong>ads available</strong>, <strong>ads NOT available, video playing</strong>, <strong>video finished</strong>, <strong>video closed</strong>. This enables you to customize the user experience according to the needs of your app. 
-The <strong>adZoneVideo.show</strong> call loads and shows the video.</li>
+<li>Use <strong>setAdZoneCreatedListener</strong> of <strong>MinimobAdController</strong> and override the <strong>onAdZoneCreated</strong> method. In this method the <strong>adZone</strong> is returned.</li>
+<li>In the <strong>onAdZoneCreated</strong> method, you can optionally set listeners for events such as: <strong>ads available</strong>, <strong>ads NOT available, video playing</strong>, <strong>video finished</strong>, <strong>video closed</strong>. This enables you to customize the user experience according to the needs of your app.</li>
+<li>The <strong>adZoneVideo.show</strong> call loads and shows the video.</li>
 </ul>
 <pre class="prettyprint linenums=5"><code>
     MinimobAdController.getInstance().setAdZoneCreatedListener(new IAdZoneCreatedListener()
@@ -192,9 +192,9 @@ private void _setupAdZone()
 
 <p>In the <strong>_setupAdZone</strong> method:</p>
 <ul>
-<li>Use <strong>setAdZoneCreatedListener</strong> of <strong>MinimobAdController</strong> and override the <strong>onAdZoneCreated</strong> method. In this method the <strong>adZone</strong> is returned.
-In the <strong>onAdZoneCreated</strong> method, you can optionally set listeners for events such as: <strong>ads available</strong>, <strong>ads NOT available, video loading</strong>, <strong>video loaded</strong>, <strong>video playing</strong>, <strong>video finished</strong>, <strong>video closed</strong>. This enables you to customize the user experience according to the needs of your app. In the example above, the <strong>_setupAdZone</strong> method calls itself within the overridden methods of the <strong>IVideoPlayingListener</strong> and <strong>IVideoClosedListener</strong> listeners, to achieve preloading of the next video ad in advance. 
-The <strong>adZoneVideoPreloaded.load</strong> call only loads the video. A separate call must be used for showing the video, as described further below.</li>
+<li>Use <strong>setAdZoneCreatedListener</strong> of <strong>MinimobAdController</strong> and override the <strong>onAdZoneCreated</strong> method. In this method the <strong>adZone</strong> is returned.</li>
+<li>In the <strong>onAdZoneCreated</strong> method, you can optionally set listeners for events such as: <strong>ads available</strong>, <strong>ads NOT available, video loading</strong>, <strong>video loaded</strong>, <strong>video playing</strong>, <strong>video finished</strong>, <strong>video closed</strong>. This enables you to customize the user experience according to the needs of your app. In the example, the <strong>_setupAdZone</strong> method calls itself within the overridden methods of the <strong>IVideoPlayingListener</strong> and <strong>IVideoClosedListener</strong> listeners, to achieve preloading of the next video ad in advance. </li>
+<li>The <strong>adZoneVideoPreloaded.load</strong> call only loads the video. A separate call must be used for showing the video, as described further below.</li>
 </ul>
 <pre class="prettyprint linenums=5"><code>
     MinimobAdController.getInstance().setAdZoneCreatedListener(new IAdZoneCreatedListener()
@@ -590,7 +590,8 @@ false: for blocking video media supported ads</td>
 </table>
 
 <h3>Examples</h3>
-<p>Here is an indicative (non-working) example of an Ad Tag, as displayed at Minimob’s Monetization dashboard for Video Ads when viewing the details of an Ad Zone that has been created.</p>
+<p>Here is an indicative example of an Ad Tag. </p>
+<blockquote><strong>Warning</strong>: Dummy Ids have been used in this example, so do not use it as is. Please navigate to Minimob’s Monetization dashboard for Video Ads and use the ad tag that is displayed at the details of the corresponding Ad Zone.</blockquote>
 <pre class="prettyprint linenums=5"><code>
 &lt;script&gt;
     var mmAdTagSettings = {
@@ -631,7 +632,8 @@ false: for blocking video media supported ads</td>
 
 </code></pre>
 
-<p>Here is an indicative (non-working) example of generated html code.</p>
+<p>Here is an indicative example of generated html code.</p>
+<blockquote><strong>Warning</strong>: Dummy Ids have been used in this example.</blockquote>
 <pre class="prettyprint linenums=5"><code>
 &lt;html&gt;
     &lt;head&gt;
@@ -679,8 +681,7 @@ false: for blocking video media supported ads</td>
 </code></pre></div>
 
 <h2>Reference Implementation</h2>
-<p>You can find a reference implementation on GitHub:</p>
-<p><a href="https://github.com/minimob/video-ad-demo#">minimob/video-ad-demo</a></p>
+<p>You can find a reference implementation on GitHub: <a href="https://github.com/minimob/video-ad-demo#">minimob/video-ad-demo</a></p>
 
 <h2>License</h2>
 <p>This is free and unencumbered software released into the public domain.</p>
@@ -702,4 +703,4 @@ IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
 OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.</p>
-<p>For more information, please refer to &lt;http://unlicense.org&gt;</p>
+<p>For more information, please refer to <a href="http://unlicense.org/#">http://unlicense.org</a></p>
