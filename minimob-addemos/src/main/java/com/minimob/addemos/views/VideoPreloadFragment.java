@@ -121,8 +121,7 @@ public class VideoPreloadFragment extends MinimobBaseFragment
                         adZoneVideoPreloaded.setAdsAvailableListener(new IAdsAvailableListener()
                         {
                             @Override
-                            public void onAdsAvailable(AdZone adZone)
-                            {
+                            public void onAdsAvailable(AdZone adZone) {
                                 showProgress(false);
 //                                MinimobHelper.getInstance().showToast(_activity, "ads available " + adZone.timeCreated, Toast.LENGTH_SHORT);
                             }
