@@ -1,6 +1,5 @@
 package com.minimob.addemos.views;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
