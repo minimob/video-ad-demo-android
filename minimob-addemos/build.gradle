@@ -14,13 +14,19 @@ repositories {
     maven { url 'https://maven.fabric.io/public' }
 }
 
+//get parameters from local.properties
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+def MinimobAndroidKey_KeyPassword = properties.getProperty('MinimobAndroidKey.keyPassword')
+def MinimobAndroidKey_StorePassword = properties.getProperty('MinimobAndroidKey.storePassword')
+
 android {
     signingConfigs {
         MinimobAndroidKey {
             keyAlias 'MinimobAndroidKey'
-            keyPassword MinimobAndroidKey.keyPassword
+            keyPassword MinimobAndroidKey_KeyPassword
             storeFile file('./minimobAndroidKeyStore.jks')
-            storePassword MinimobAndroidKey.storePassword
+            storePassword MinimobAndroidKey_StorePassword
         }
     }
     compileSdkVersion 23
@@ -68,5 +74,5 @@ dependencies {
     compile 'com.android.support:support-v4:23.4.0'
     compile 'com.android.support:multidex:1.0.1'
 
-    compile 'com.github.minimob:video-ad-serving:1.0.26'
+    compile 'com.github.minimob:video-ad-serving:+'
 }
