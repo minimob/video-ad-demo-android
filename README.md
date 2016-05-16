@@ -169,7 +169,7 @@ private void _setupAdZone()
                     " bundleId: \"com.minimob.addemos\", \n" +
                     " placement: \"video fullscreen interstitial\"}; \n" +
                     " &lt;/script&gt; \n" +
-                    " &lt;script id=\"sdk-loader\" onerror=\"if(typeof(mmji)!='undefined'){mmji.noAds()}\" type=\"text/javascript\" src=\"http://s-dev.rtad.bid/assets/video-fullscreen-mmji.js\"&gt;&lt;/script&gt;";
+                    " &lt;script id=\"sdk-loader\" onerror=\"if(typeof(mmji)!='undefined'){mmji.noAds()}\" type=\"text/javascript\" src=\"http://s.rtad.bid/assets/video-fullscreen-mmji.js\"&gt;&lt;/script&gt;";
     //create the AdTag object
     AdTag adTag = new AdTag(getContext(), adTagString);
     //set the custom tracking data (optional)
@@ -293,7 +293,7 @@ private void _setupAdZone()
                     " bundleId: \"com.minimob.addemos\", \n" +
                     " placement: \"video fullscreen interstitial\"}; \n" +
                     " &lt;/script&gt; \n" +
-                    " &lt;script id=\"sdk-loader\" onerror=\"if(typeof(mmji)!='undefined'){mmji.noAds()}\" type=\"text/javascript\" src=\"http://s-dev.rtad.bid/assets/video-fullscreen-mmji.js\"&gt;&lt;/script&gt;";
+                    " &lt;script id=\"sdk-loader\" onerror=\"if(typeof(mmji)!='undefined'){mmji.noAds()}\" type=\"text/javascript\" src=\"http://s.rtad.bid/assets/video-fullscreen-mmji.js\"&gt;&lt;/script&gt;";
     //create the AdTag object
     AdTag adTag = new AdTag(getContext(), adTagString);
     //set the custom tracking data (optional)
@@ -628,7 +628,7 @@ false: for blocking video media supported ads</td>
         placement: "video fullscreen interstitial"
     };
 &lt;/script&gt;
-&lt;script id="sdk-loader" onerror="if(typeof(mmji)!='undefined'){mmji.noAds()}" type="text/javascript" src="http://s-dev.rtad.bid/assets/video-fullscreen-mmji.js"&gt;&lt;/script&gt;
+&lt;script id="sdk-loader" onerror="if(typeof(mmji)!='undefined'){mmji.noAds()}" type="text/javascript" src="http://s.rtad.bid/assets/video-fullscreen-mmji.js"&gt;&lt;/script&gt;
 
 </code></pre>
 
