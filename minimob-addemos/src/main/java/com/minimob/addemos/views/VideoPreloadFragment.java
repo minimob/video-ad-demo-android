@@ -198,7 +198,7 @@ public class VideoPreloadFragment extends MinimobBaseFragment
                 }
             });
 
-            // TEST ADTAG
+            // The ad tag (copied from the ad zone in minimob dashboard) is pasted as a string here
             String adTagString = "<script> \n" +
                     " var mmAdTagSettings = { \n" +
                     " imei: \"[imei]\", \n" +
