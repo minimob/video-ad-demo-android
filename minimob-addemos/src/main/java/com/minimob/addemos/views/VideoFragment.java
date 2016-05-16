@@ -70,11 +70,16 @@ public class VideoFragment extends MinimobBaseFragment
     //region HELPERS
     private void _setupUI()
     {
+        //set the title to the ActionBar
         _activity.setTitle(this.titleRes);
+        //a progress bar to show on loading times
         abProgress = (ProgressBar)_activity.findViewById(R.id.actionbar_progress);
+        //hide the progress bar
         this.showProgress(false);
 
+        //button to load and show the video ad
         video_btnFullscreen_play = (Button) _activity.findViewById(R.id.video_btnFullscreen_play);
+        //when the user clicks on the button
         video_btnFullscreen_play.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -82,7 +87,9 @@ public class VideoFragment extends MinimobBaseFragment
             {
                 try
                 {
+                    //show the progress bar
                     showProgress(true);
+                    //setup an AdZone and show it
                     _setupAdZone();
                 }
                 catch (Exception ex)
@@ -97,41 +104,51 @@ public class VideoFragment extends MinimobBaseFragment
     {
         try
         {
+            //set the listener that gets called when the AdZone is created by MinimobAdController
             MinimobAdController.getInstance().setAdZoneCreatedListener(new IAdZoneCreatedListener()
             {
                 @Override
                 public void onAdZoneCreated(AdZone adZone)
                 {
+                    //cast the returned AdZone to the AdZoneVideo type
                     adZoneVideo = (AdZoneVideo) adZone;
                     if (adZoneVideo != null)
                     {
+                        //set a listener for when the ad server returns the event that there are ads available
                         adZoneVideo.setAdsAvailableListener(new IAdsAvailableListener() {
                             @Override
                             public void onAdsAvailable(AdZone adZone) {
+                                //hide the progress bar
                                 showProgress(false);
                                 //MinimobHelper.getInstance().showToast(_activity, "ads available", Toast.LENGTH_SHORT);
                             }
                         });
+                        //set a listener for when the ad server returns the event that there are NO ads available
                         adZoneVideo.setAdsNotAvailableListener(new IAdsNotAvailableListener() {
                             @Override
                             public void onAdsNotAvailable(AdZone adZone) {
+                                //hide the progress bar
                                 showProgress(false);
                                 //MinimobHelper.getInstance().showToast(_activity, "ads NOT available", Toast.LENGTH_SHORT);
                             }
                         });
+                        //set a listener for when the video started playing
                         adZoneVideo.setVideoPlayingListener(new IVideoPlayingListener() {
                             @Override
                             public void onVideoPlaying(AdZone adZone) {
+                                //hide the progress bar
                                 showProgress(false);
                                 //MinimobHelper.getInstance().showToast(_activity, "video playing", Toast.LENGTH_SHORT);
                             }
                         });
+                        //set a listener for when the video finished playing
                         adZoneVideo.setVideoFinishedListener(new IVideoFinishedListener() {
                             @Override
                             public void onVideoFinished(AdZone adZone) {
                                 //MinimobHelper.getInstance().showToast(_activity, "video finished", Toast.LENGTH_SHORT);
                             }
                         });
+                        //set a listener for when the video was closed by the user
                         adZoneVideo.setVideoClosedListener(new IVideoClosedListener() {
                             @Override
                             public void onVideoClosed(AdZone adZone) {
@@ -139,6 +156,7 @@ public class VideoFragment extends MinimobBaseFragment
                             }
                         });
 
+                        //show the video
                         adZoneVideo.show();
                     }
                 }
@@ -180,11 +198,12 @@ public class VideoFragment extends MinimobBaseFragment
                     " placement: \"video fullscreen interstitial\"}; \n" +
                     " </script> \n" +
                     " <script id=\"sdk-loader\" onerror=\"if(typeof(mmji)!='undefined'){mmji.noAds()}\" type=\"text/javascript\" src=\"http://s.rtad.bid/assets/video-fullscreen-mmji.js\"></script>";
+
             //create the AdTag object
             AdTag adTag = new AdTag(getContext(), adTagString);
             //set the custom tracking data (optional)
             adTag.setCustomTrackingData("some tracking data");
-            //create the AdZone
+            //request the AdZone
             MinimobAdController.getInstance().getVideo(_activity, adTag);
         }
         catch (Exception ex)
@@ -192,6 +211,5 @@ public class VideoFragment extends MinimobBaseFragment
             _activity.HandleCrash(TAG, ex);
         }
     }
-
     //endregion HELPERS
 }
