@@ -17,16 +17,18 @@ repositories {
 //get parameters from local.properties
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
-def MinimobAndroidKey_KeyPassword = properties.getProperty('MinimobAndroidKey.keyPassword')
-def MinimobAndroidKey_StorePassword = properties.getProperty('MinimobAndroidKey.storePassword')
+def property_MinimobAndroidKey_KeyPassword = properties.getProperty('MinimobAndroidKey.keyPassword')
+def property_MinimobAndroidKey_StorePassword = properties.getProperty('MinimobAndroidKey.storePassword')
+def property_versionCode = properties.getProperty('versionCode')
+def property_versionName = properties.getProperty('versionName')
 
 android {
     signingConfigs {
         MinimobAndroidKey {
             keyAlias 'MinimobAndroidKey'
-            keyPassword MinimobAndroidKey_KeyPassword
+            keyPassword property_MinimobAndroidKey_KeyPassword
             storeFile file('./minimobAndroidKeyStore.jks')
-            storePassword MinimobAndroidKey_StorePassword
+            storePassword property_MinimobAndroidKey_StorePassword
         }
     }
     compileSdkVersion 23
@@ -38,8 +40,8 @@ android {
         applicationId 'com.minimob.addemos'
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 26
-        versionName "1.0.26"
+        versionCode java.lang.Integer.parseInt(property_versionCode)
+        versionName property_versionName
 
         // Enabling multidex support.
         multiDexEnabled true
@@ -77,5 +79,5 @@ dependencies {
     compile 'com.android.support:support-v4:23.4.0'
     compile 'com.android.support:multidex:1.0.1'
 
-    compile 'com.github.minimob:video-ad-serving:+'
+    compile 'com.github.minimob:video-ad-serving:1.0.27'
 }
