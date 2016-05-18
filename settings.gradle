@@ -1,1 +1,7 @@
 include ':minimob-addemos'
+
+//NOTE: "import" minimob-adserving module from the video-ad-serving local copy
+def adServingDir = new File(settingsDir, '../video-ad-serving/minimob-adserving')
+def rootProjectDescriptor = settings.rootProject
+settings.createProjectDescriptor(rootProjectDescriptor, 'minimob-adserving', adServingDir)
+include ':minimob-adserving'
