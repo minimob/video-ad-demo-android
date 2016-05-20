@@ -13,7 +13,7 @@ import com.minimob.addemos.R;
  */
 public class MinimobBaseActivity extends AppCompatActivity
 {
-    public static String TAG = "MINIMOB";
+    public static String TAG = MinimobBaseActivity.class.getSimpleName();
 
     public void HandleCrash(String tag, Throwable ex)
     {

@@ -18,7 +18,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.minimob.addemos.R;
-import com.minimob.adserving.helpers.MinimobViewLog;
+import com.minimob.adserving.helpers.MinimobLog;
 
 
 /**
@@ -59,7 +59,7 @@ public class MinimobDemoActivity extends MinimobBaseActivity implements Navigati
             this.showFragment(this, R.id.container, new BlankAdFragment());
 
             // set minimobjsinterface log level
-            MinimobViewLog.setLoggingLevel(MinimobViewLog.LOG_LEVEL.info);
+            MinimobLog.setLoggingLevel(MinimobLog.LOG_LEVEL.info);
         }
         catch (Exception ex)
         {

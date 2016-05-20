@@ -14,7 +14,7 @@ import com.minimob.adserving.helpers.MinimobHelper;
 public class MinimobBaseFragment extends Fragment
 {
     //region VARIABLES
-    private String TAG = "MINIMOB-" + MinimobBaseFragment.class.getSimpleName();
+    private String TAG = MinimobBaseFragment.class.getSimpleName();
     public MinimobBaseActivity _activity;
     int titleRes;
     ProgressBar abProgress;

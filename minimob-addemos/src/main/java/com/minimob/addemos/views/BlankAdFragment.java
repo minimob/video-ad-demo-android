@@ -14,7 +14,7 @@ import com.minimob.addemos.R;
 public class BlankAdFragment extends MinimobBaseFragment
 {
     //region VARIABLES
-    private static String TAG = "MINIMOB-" + BlankAdFragment.class.getSimpleName();
+    private static String TAG = BlankAdFragment.class.getSimpleName();
     //endregion
 
     //region constructors
