@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 
 import com.minimob.adserving.helpers.MinimobHelper;
@@ -19,7 +18,6 @@ public class MinimobBaseFragment extends Fragment
     public MinimobBaseActivity _activity;
     int titleRes;
     ProgressBar abProgress;
-    FrameLayout _loadingView;
     //endregion VARIABLES
 
     //region CONSTRUCTORS

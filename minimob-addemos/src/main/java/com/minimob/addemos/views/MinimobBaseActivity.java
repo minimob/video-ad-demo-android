@@ -4,7 +4,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.ProgressBar;
 
 import com.crashlytics.android.Crashlytics;
 import com.minimob.addemos.R;
@@ -15,7 +14,6 @@ import com.minimob.addemos.R;
 public class MinimobBaseActivity extends AppCompatActivity
 {
     public static String TAG = "MINIMOB";
-    protected ProgressBar abProgress;
 
     public void HandleCrash(String tag, Throwable ex)
     {
