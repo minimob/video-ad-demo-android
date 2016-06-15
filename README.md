@@ -21,7 +21,7 @@
 <ol>
     <li>At the <strong>build.gradle</strong> script file of <em>minimob-addemos module</em>, the following line was added in the <strong>dependencies</strong> block:</li>
 <pre class="prettyprint linenums=5">
-<code>compile 'com.github.minimob:video-ad-serving:1.0.26'
+<code>compile 'com.github.minimob:video-ad-serving:1.0.28'
 </code>
 </pre>
     <li>At the <strong>build.gradle</strong> script file of the <em>project</em>, the following line was added in the <strong>repositories</strong> block:</li>
