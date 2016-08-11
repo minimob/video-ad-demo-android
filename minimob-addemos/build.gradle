@@ -31,15 +31,15 @@ android {
             storePassword property_MinimobAndroidKey_StorePassword
         }
     }
-    compileSdkVersion 23
-    buildToolsVersion '23.0.2'
+    compileSdkVersion 24
+    buildToolsVersion '24.0.1'
     dexOptions {
         javaMaxHeapSize "3g"
     }
     defaultConfig {
         applicationId 'com.minimob.addemos'
         minSdkVersion 16
-        targetSdkVersion 23
+        targetSdkVersion 24
         versionCode Integer.parseInt(property_versionCode)
         versionName property_versionName
 
@@ -78,9 +78,9 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') {
         transitive = true;
     }
-    compile 'com.android.support:appcompat-v7:23.4.0'
-    compile 'com.android.support:design:23.4.0'
-    compile 'com.android.support:support-v4:23.4.0'
+    compile 'com.android.support:appcompat-v7:24.1.1'
+    compile 'com.android.support:design:24.1.1'
+    compile 'com.android.support:support-v4:24.1.1'
     compile 'com.android.support:multidex:1.0.1'
 
     //from local copy
