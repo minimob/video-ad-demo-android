@@ -47,7 +47,7 @@ android {
     defaultConfig {
         applicationId 'com.minimob.addemos'
         minSdkVersion 16
-        targetSdkVersion 24
+        targetSdkVersion 23
         versionCode Integer.parseInt(property_versionCode)
         versionName property_versionName
 
@@ -58,11 +58,11 @@ android {
     }
     buildTypes {
         release {
-//            //WARNING: DON'T ENABLE PROGUARD... IT OBFUSCATES THE mmji METHODS
-//            minifyEnabled true //enables Proguard
-//            useProguard true //when false internal shrinker is used (no obfuscation) (DOES NOT WORK WITH MULTIDEX)
-//            shrinkResources true
-//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //WARNING: DON'T ENABLE PROGUARD... IT OBFUSCATES THE mmji METHODS
+            minifyEnabled true //enables Proguard
+            useProguard true //when false internal shrinker is used (no obfuscation) (DOES NOT WORK WITH MULTIDEX)
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.MinimobAndroidKey
         }
     }
