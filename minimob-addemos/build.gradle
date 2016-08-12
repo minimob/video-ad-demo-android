@@ -62,7 +62,7 @@ android {
 //            minifyEnabled true //enables Proguard
 //            useProguard true //when false internal shrinker is used (no obfuscation) (DOES NOT WORK WITH MULTIDEX)
 //            shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.MinimobAndroidKey
         }
     }
