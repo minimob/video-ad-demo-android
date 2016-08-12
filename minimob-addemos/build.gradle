@@ -58,7 +58,7 @@ android {
     }
     buildTypes {
         release {
-//             //WARNING: DON'T ENABLE PROGUARD... IT OBFUSCATES THE mmji METHODS
+//            //WARNING: DON'T ENABLE PROGUARD... IT OBFUSCATES THE mmji METHODS
 //            minifyEnabled true //enables Proguard
 //            useProguard true //when false internal shrinker is used (no obfuscation) (DOES NOT WORK WITH MULTIDEX)
 //            shrinkResources true
