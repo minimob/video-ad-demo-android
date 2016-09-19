@@ -9,8 +9,8 @@ buildscript {
 
         //NOTE: Those lines are needed if we use minimob-adserving from local copy and not from an online repo (bintray prerequisites)
         //for bintray upload (maven repo) USING nuuneoi's library
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.4'
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
+//        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.4'
+//        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
         //for bintray upload (maven repo) USING nuuneoi's library
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -21,8 +21,9 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
-//        //NOTE: used to import minimob-adserving from GitHub
+//        //REGION Import minimob-adserving from GitHub
 //        maven { url "https://jitpack.io" }
+//        //ENDREGION Import minimob-adserving from GitHub
     }
 }
 

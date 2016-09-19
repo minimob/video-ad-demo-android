@@ -97,4 +97,7 @@ dependencies {
 
 //    //from GitHub
 //    compile 'com.github.minimob:video-ad-serving:1.0.29'
+
+//    //from Maven
+//    compile 'com.minimob.adserving:minimob-adserving:1.0.28'
 }
