@@ -96,8 +96,8 @@ dependencies {
     compile project(':minimob-adserving')
 
 //    //from GitHub
-//    compile 'com.github.minimob:video-ad-serving:1.0.29'
+//    compile 'com.github.minimob:video-ad-serving-android:1.0.30'
 
 //    //from Maven
-//    compile 'com.minimob.adserving:minimob-adserving:1.0.28'
+//    compile 'com.minimob.adserving:minimob-adserving-android:1.0.29'
 }
