@@ -24,12 +24,12 @@
 </code>
 </pre>
 <h3>Importing the Minimob ad-serving module to your project</h3>
-   <p>The required Minimob ad-serving module can be imported from the source code of the <a href="https://github.com/minimob/video-ad-serving" target="_blank">Minimob video-ad-serving project</a> or, provided that <strong>Gradle</strong> is used, it can be retrieved from online repositories.</p>
+   <p>The required Minimob ad-serving module can be imported from the source code of the <a href="https://github.com/minimob/video-ad-serving-android" target="_blank">Minimob video-ad-serving-android project</a> or, provided that <strong>Gradle</strong> is used, it can be retrieved from online repositories.</p>
    <p>In this implementation, the choice was to retrieve the module from the Github repository. The following were carried out:</p>
 <ol>
     <li>At the <strong>build.gradle</strong> script file of <em>minimob-addemos module</em>, the following line was added in the <strong>dependencies</strong> block:</li>
 <pre class="prettyprint linenums">
-<code>compile 'com.github.minimob:video-ad-serving:1.0.28'
+<code>compile 'com.github.minimob:video-ad-serving-android:1.0.28'
 </code>
 </pre>
     <li>At the <strong>build.gradle</strong> script file of the <em>project</em>, the following line was added in the <strong>repositories</strong> block:</li>
@@ -52,7 +52,7 @@
    <p>Inline comments have been included in the code of the above two fragments in order to provide clarifications on their implementation.</p>
 <h3>Further resources</h3>
    <p>You can get this demo app on Google Play at: <a href="https://play.google.com/store/apps/details?id=com.minimob.addemos" target="_blank">Minimob demos</a></p>
-   <p>Further integration instructions as well as more detailed information about the parameters used at the JavaScript Ad Tag can be found at the <a href="https://github.com/minimob/video-ad-serving" target="_blank">Minimob video-ad-serving project</a></p>
+   <p>Further integration instructions as well as more detailed information about the parameters used at the JavaScript Ad Tag can be found at the <a href="https://github.com/minimob/video-ad-serving-android" target="_blank">Minimob video-ad-serving-android project</a></p>
 </div>
 <div id="D-adtag-license">
 <h2>License</h2>
