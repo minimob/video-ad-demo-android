@@ -5,7 +5,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.3'
+        classpath 'com.android.tools.build:gradle:2.3.0'
 
         //NOTE: Those lines are needed if we use minimob-adserving from local copy and not from an online repo (bintray prerequisites)
         //for bintray upload (maven repo) USING nuuneoi's library
